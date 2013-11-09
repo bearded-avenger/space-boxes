@@ -17,14 +17,18 @@ class ba_SpaceBoxes_SC {
 
 	function __construct() {
 
-        $this->dir  = plugin_dir_path( __FILE__ );
-        $this->url  = plugins_url( '', __FILE__ );
-
         add_shortcode('spaceboxes', array($this,'space_boxes_sc'));
+        add_action ('wp_enqueue_scripts', array($this,'register_scripts'));
 
 	}
 
+	function register_scripts(){
+		wp_register_style('spaceboxes-style', plugins_url( '../spaceboxes.css', __FILE__ ), self::version );
+	}
+
 	function space_boxes_sc($atts,$content = null){
+
+		$hash = rand();
 
 		// shortcode defaults
 		$defaults = array(
@@ -60,16 +64,23 @@ class ba_SpaceBoxes_SC {
 		// fetch the image id's that the user has within the gallery shortcode
 		$images = get_posts($args);
 
+		// load styles & scripts
+		wp_enqueue_style('spaceboxes-style');
 
+		//echo $post['post_title'];
 
+		// print the shortcode
 		ob_start();
 
-			echo $post['post_title'];
-			foreach($images as $image):
+			?><section class="fix space-boxes space-boxes-<?php echo $hash;?>"><?php
 
-               	?><div class="item"><?php echo wp_get_attachment_image($image->ID, 'thumbnail') ?></div><?php
+				foreach($images as $image):
 
-            endforeach;
+	               	?><div class="spacebox"><?php echo wp_get_attachment_image($image->ID, 'thumbnail') ?></div><?php
+
+	            endforeach;
+
+            ?></section><?php
 
 		return ob_get_clean();
 
