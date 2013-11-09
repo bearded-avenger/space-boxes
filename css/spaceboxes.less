@@ -1,0 +1,23 @@
+.clearfix() {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+.space-boxes {
+    .clearfix();
+}
+.spacebox {
+	float: left;
+	line-height: 0;
+	margin-right:10px;
+
+    &:last-child {
+        margin-right:0;
+    }
+}

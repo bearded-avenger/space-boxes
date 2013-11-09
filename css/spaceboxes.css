@@ -1,0 +1,3 @@
+.space-boxes:before,.space-boxes:after{content:" ";display:table}
+.space-boxes:after{clear:both}
+.spacebox{float:left;line-height:0;margin-right:10px}.spacebox:last-child{margin-right:0}

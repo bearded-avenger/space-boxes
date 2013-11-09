@@ -23,7 +23,7 @@ class ba_SpaceBoxes_SC {
 	}
 
 	function register_scripts(){
-		wp_register_style('spaceboxes-style', plugins_url( '../spaceboxes.css', __FILE__ ), self::version );
+		wp_register_style('spaceboxes-style', plugins_url( '../css/spaceboxes.css', __FILE__ ), self::version );
 	}
 
 	function space_boxes_sc($atts,$content = null){
@@ -53,12 +53,12 @@ class ba_SpaceBoxes_SC {
 
 		// setup some args so we can pull only images from this content
 		$args = array(
-            'include'                         => $ids,
-            'post_status'                 => 'inherit',
-            'post_type'                 => 'attachment',
-            'post_mime_type'         => 'image',
-            'order'                         => 'menu_order ID',
-            'orderby'                         => 'post__in', //required to order results based on order specified the "include" param
+            'include'        => $ids,
+            'post_status'    => 'inherit',
+            'post_type'      => 'attachment',
+            'post_mime_type' => 'image',
+            'order'          => 'menu_order ID',
+            'orderby'        => 'post__in', //required to order results based on order specified the "include" param
         );
 
 		// fetch the image id's that the user has within the gallery shortcode
@@ -72,9 +72,13 @@ class ba_SpaceBoxes_SC {
 		// print the shortcode
 		ob_start();
 
-			?><section class="fix space-boxes space-boxes-<?php echo $hash;?>"><?php
+			?><section class="clearfix space-boxes space-boxes-<?php echo $hash;?>"><?php
 
 				foreach($images as $image):
+
+					$image_title = $image->post_title;
+					$caption 	 = $image->post_excerpt;
+					$description = $image->post_content;
 
 	               	?><div class="spacebox"><?php echo wp_get_attachment_image($image->ID, 'thumbnail'); ?></div><?php
 
