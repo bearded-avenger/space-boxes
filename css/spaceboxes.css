@@ -1,3 +1,6 @@
 .space-boxes:before,.space-boxes:after{content:" ";display:table}
 .space-boxes:after{clear:both}
-.spacebox{float:left;line-height:0;margin-right:10px}.spacebox:last-child{margin-right:0}
+.space-boxes.space-boxes-col3 .spacebox{width:32.333%}
+.space-boxes .spacebox{float:left;line-height:0;margin-right:1.5%}.space-boxes .spacebox:last-child{margin-right:0}
+.space-boxes .spacebox .spacebox-box-title{margin:10px 0 0}
+.space-boxes .spacebox .spacebox-box-image{max-width:100%;height:auto}

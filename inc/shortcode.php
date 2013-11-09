@@ -28,8 +28,6 @@ class ba_SpaceBoxes_SC {
 
 	function space_boxes_sc($atts,$content = null){
 
-		$hash = rand();
-
 		// shortcode defaults
 		$defaults = array(
 			'id'		=> '',
@@ -67,21 +65,26 @@ class ba_SpaceBoxes_SC {
 		// load styles & scripts
 		wp_enqueue_style('spaceboxes-style');
 
+		// setup vars
+		$hash = rand();
+		$cols = sprintf('space-boxes-col%s',$atts['columns']);
+
 		// print the shortcode
-		$out = sprintf('<section class="clearfix space-boxes space-boxes-%s">',$hash);
+		$out = sprintf('<section class="clearfix space-boxes space-boxes-%s %s">',$hash,$cols);
 
 				$set_title = $post['post_title'];
 
 				foreach($images as $image):
 
-					$img_title 	  = $image->post_title;
-					$caption 	  = $image->post_excerpt;
-					$description  = $image->post_content;
-					$image 		  = wp_get_attachment_image($image->ID, 'thumbnail');
+					$img_title 	  	= $image->post_title;
+					$get_caption 	= $image->post_excerpt;
+					$get_desc  		= $image->post_content;
+					$image 		 	= wp_get_attachment_image($image->ID, 'spacebox-small', false, array('class' => 'spacebox-box-image'));
 
-		            $title = ($img_title) ? sprintf('<h3>%s</h3>',$img_title) : false;
+		            $title 	= $img_title ? sprintf('<h4 itemprop="title" class="spacebox-box-title">%s</h4>',$img_title) : false;
+		            $caption = $get_caption ? sprintf('<p class="spacebox-box-caption">%s</p>',$get_caption) : false;
 
-	               	$out .= apply_filters('space_boxes_output',sprintf('<div class="spacebox">%s%s</div>',$title,$image));
+	               	$out .= apply_filters('space_boxes_output',sprintf('<div class="spacebox">%s%s%s</div>',$image,$title,$caption));
 
 	            endforeach;
 

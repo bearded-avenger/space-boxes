@@ -11,13 +11,30 @@
 
 .space-boxes {
     .clearfix();
-}
-.spacebox {
-	float: left;
-	line-height: 0;
-	margin-right:10px;
 
-    &:last-child {
-        margin-right:0;
+    &.space-boxes-col3 {
+
+        .spacebox {
+            width:32.333%;
+        }
+    }
+
+    .spacebox {
+    	float: left;
+    	line-height: 0;
+    	margin-right:1.5%;
+
+        &:last-child {
+            margin-right:0;
+        }
+
+        .spacebox-box-title {
+            margin:10px 0 0;
+        }
+
+        .spacebox-box-image {
+            max-width: 100%;
+            height:auto;
+        }
     }
 }
