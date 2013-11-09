@@ -15,22 +15,28 @@
     &.space-boxes-col3 {
 
         .spacebox {
-            width:32.333%;
+            width:31.999%;
         }
     }
 
     .spacebox {
     	display: inline-block;
     	line-height: 0;
-    	margin-right:1.5%;
+    	margin-right:2%;
         vertical-align: top;
 
         &:last-child {
             margin-right:0;
         }
 
+        .swipebox {
+            display: block;
+        }
+
         .spacebox-box-title {
-            margin:0;
+            margin:10px auto 0;
+            font-size:1.2em;
+            line-height: 1em;
         }
 
         .spacebox-box-image {
@@ -38,7 +44,9 @@
             height:auto;
         }
         .spacebox-box-caption {
-            margin:10px 0 0;
+            margin:5px 0 0;
+            font-size:0.95em;
+            line-height: 1.35em;
         }
     }
 }

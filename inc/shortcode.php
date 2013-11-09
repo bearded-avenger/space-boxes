@@ -77,7 +77,7 @@ class ba_SpaceBoxes_SC {
 			wp_enqueue_style('spaceboxes-lb-style');
 
 			?>
-			<!-- EDD Galleries SC Instantiation -->
+			<!-- Space Boxes by @nphaskins -->
 			<script>
 				jQuery(document).ready(function(){
 					jQuery('.space-boxes.space-boxes-<?php echo $hash;?> .swipebox').swipebox();
@@ -92,33 +92,30 @@ class ba_SpaceBoxes_SC {
 		// print the shortcode
 		$out = sprintf('<section class="clearfix space-boxes space-boxes-%s %s">',$hash,$cols);
 
-				$set_title = $post['post_title'];
+			foreach($images as $image):
 
-				foreach($images as $image):
+				$img_title 	  	= $image->post_title;
+				$get_caption 	= $image->post_excerpt;
+				$get_desc  		= $image->post_content;
+				$getimage 		= wp_get_attachment_image($image->ID, 'spacebox-small', false, array('class' => 'spacebox-box-image'));
+				$getimgsrc 		= wp_get_attachment_image_src($image->ID,'large');
 
-					$img_title 	  	= $image->post_title;
-					$get_caption 	= $image->post_excerpt;
-					$get_desc  		= $image->post_content;
+				if('on' == $atts['lightbox']) {
+					$image 		= sprintf('<a class="swipebox" href="%s" title="%s">%s</a>',$getimgsrc[0],$img_title,$getimage);
+				} else {
+					$image 		= wp_get_attachment_image($image->ID, 'spacebox-small', false, array('class' => 'spacebox-box-image'));
+				}
 
-					$getimage = wp_get_attachment_image($image->ID, 'spacebox-small', false, array('class' => 'spacebox-box-image'));
-					$getimgsrc = wp_get_attachment_image_src($image->ID,'large');
+	            $title 			= $img_title ? sprintf('<h3 itemprop="title" class="spacebox-box-title">%s</h3>',$img_title) : false;
+	            $caption 		= $get_caption ? sprintf('<p class="spacebox-box-caption">%s</p>',$get_caption) : false;
 
-					if('on' == $atts['lightbox']) {
-						$image 		= sprintf('<a class="swipebox" href="%s" title="%s">%s</a>',$getimgsrc[0],$img_title,$getimage);
-					} else {
-						$image 		= wp_get_attachment_image($image->ID, 'spacebox-small', false, array('class' => 'spacebox-box-image'));
-					}
+               	$out 			.= sprintf('<div class="spacebox">%s%s%s</div>',$image,$title,$caption);
 
-		            $title 	= $img_title ? sprintf('<h3 itemprop="title" class="spacebox-box-title">%s</h3>',$img_title) : false;
-		            $caption = $get_caption ? sprintf('<p class="spacebox-box-caption">%s</p>',$get_caption) : false;
-
-	               	$out .= apply_filters('space_boxes_output',sprintf('<div class="spacebox">%s%s%s</div>',$title,$image,$caption));
-
-	            endforeach;
+            endforeach;
 
         $out .= sprintf('</section>');
 
-		return $out;
+		return apply_filters('space_boxes_output',$out);
 
 	}
 
