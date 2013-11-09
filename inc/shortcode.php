@@ -67,26 +67,27 @@ class ba_SpaceBoxes_SC {
 		// load styles & scripts
 		wp_enqueue_style('spaceboxes-style');
 
-		//echo $post['post_title'];
-
 		// print the shortcode
-		ob_start();
+		$out = sprintf('<section class="clearfix space-boxes space-boxes-%s">',$hash);
 
-			?><section class="clearfix space-boxes space-boxes-<?php echo $hash;?>"><?php
+				$set_title = $post['post_title'];
 
 				foreach($images as $image):
 
-					$image_title = $image->post_title;
-					$caption 	 = $image->post_excerpt;
-					$description = $image->post_content;
+					$img_title 	  = $image->post_title;
+					$caption 	  = $image->post_excerpt;
+					$description  = $image->post_content;
+					$image 		  = wp_get_attachment_image($image->ID, 'thumbnail');
 
-	               	?><div class="spacebox"><?php echo wp_get_attachment_image($image->ID, 'thumbnail'); ?></div><?php
+		            $title = ($img_title) ? sprintf('<h3>%s</h3>',$img_title) : false;
+
+	               	$out .= apply_filters('space_boxes_output',sprintf('<div class="spacebox">%s%s</div>',$title,$image));
 
 	            endforeach;
 
-            ?></section><?php
+        $out .= sprintf('</section>');
 
-		return ob_get_clean();
+		return $out;
 
 	}
 
