@@ -81,10 +81,10 @@ class ba_SpaceBoxes_SC {
 					$get_desc  		= $image->post_content;
 					$image 		 	= wp_get_attachment_image($image->ID, 'spacebox-small', false, array('class' => 'spacebox-box-image'));
 
-		            $title 	= $img_title ? sprintf('<h4 itemprop="title" class="spacebox-box-title">%s</h4>',$img_title) : false;
+		            $title 	= $img_title ? sprintf('<h3 itemprop="title" class="spacebox-box-title">%s</h3>',$img_title) : false;
 		            $caption = $get_caption ? sprintf('<p class="spacebox-box-caption">%s</p>',$get_caption) : false;
 
-	               	$out .= apply_filters('space_boxes_output',sprintf('<div class="spacebox">%s%s%s</div>',$image,$title,$caption));
+	               	$out .= apply_filters('space_boxes_output',sprintf('<div class="spacebox">%s%s%s</div>',$title,$image,$caption));
 
 	            endforeach;
 
