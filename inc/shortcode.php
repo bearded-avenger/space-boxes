@@ -120,6 +120,29 @@ class ba_SpaceBoxes_SC {
 	}
 
 	function space_box_archive_sc($atts,$content = null){
+		// shortcode defaults
+		$defaults = array('category'		=> '');
+		$atts 	  = shortcode_atts($defaults, $atts);
+
+		$args = array(
+			'post_type' => 'spaceboxes',
+			'posts_per_page' => 100,
+
+		);
+
+		$q = new wp_query($args);
+
+		$out = sprintf('<section class="space-boxes-archive">');
+
+			if ($q->have_posts()) : while($q->have_posts()) : $q->the_post();
+
+				$out .= sprintf('%s', get_the_title());
+
+			endwhile;endif; wp_reset_query();
+
+		$out .= sprintf('</section>');
+
+		return apply_filters('space_boxes_archive_output',$out);
 
 	}
 
