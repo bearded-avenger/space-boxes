@@ -13,6 +13,7 @@ class ba_SpaceBoxes_FarOut_Man {
 	function __construct() {
 
 		require_once('inc/type.php' );
+		require_once('inc/spacebox-meta.php' );
 		require_once('inc/shortcode.php' );
 		add_action('init', 	array($this,'image_sizes'));
 	}

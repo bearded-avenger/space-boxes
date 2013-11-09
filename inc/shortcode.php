@@ -127,16 +127,19 @@ class ba_SpaceBoxes_SC {
 		$args = array(
 			'post_type' => 'spaceboxes',
 			'posts_per_page' => 100,
-
 		);
 
 		$q = new wp_query($args);
 
-		$out = sprintf('<section class="space-boxes-archive">');
+		$out = sprintf('<section class="space-boxes space-boxes-archive">');
 
 			if ($q->have_posts()) : while($q->have_posts()) : $q->the_post();
 
-				$out .= sprintf('%s', get_the_title());
+				$title = sprintf('<h3 itemprop="title" class="spacebox-box-title">%s</h3>', get_the_title());
+				$image = sprintf('%s', get_the_post_thumbnail(get_the_ID(), 'spacebox-small', false, array('class' => 'spacebox-box-image')));
+				$link = get_post_meta(get_the_ID(),'ba_spacebox_single_link', true) ? get_post_meta(get_the_ID(),'ba_spacebox_single_link', true) : false;
+
+				$out .= sprintf('<div class="spacebox"><a class="spacebox-link" href="%s">%s%s</a></div>',$link,$image, $title);
 
 			endwhile;endif; wp_reset_query();
 

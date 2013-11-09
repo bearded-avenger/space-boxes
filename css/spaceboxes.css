@@ -1,3 +1,4 @@
+.spacebox-link{display:block}
 .space-boxes:before,.space-boxes:after{content:" ";display:table}
 .space-boxes:after{clear:both}
 .space-boxes.space-boxes-col3 .spacebox{width:31.999%}
