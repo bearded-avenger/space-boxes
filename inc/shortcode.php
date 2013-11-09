@@ -24,6 +24,10 @@ class ba_SpaceBoxes_SC {
 
 	function register_scripts(){
 		wp_register_style('spaceboxes-style', plugins_url( '../css/spaceboxes.css', __FILE__ ), self::version );
+
+		// swipebox
+		wp_register_style( 'spaceboxes-lb-style', plugins_url( '../libs/swipebox/swipebox.css', __FILE__ ), self::version, true);
+		wp_register_script('spaceboxes-lb',       plugins_url( '../libs/swipebox/jquery.swipebox.min.js', __FILE__ ), array('jquery'), self::version, true);
 	}
 
 	function space_boxes_sc($atts,$content = null){
@@ -62,12 +66,28 @@ class ba_SpaceBoxes_SC {
 		// fetch the image id's that the user has within the gallery shortcode
 		$images = get_posts($args);
 
-		// load styles & scripts
-		wp_enqueue_style('spaceboxes-style');
-
 		// setup vars
 		$hash = rand();
 		$cols = sprintf('space-boxes-col%s',$atts['columns']);
+
+		// load lightbox stuffs on demand
+		if ('on' == $atts['lightbox']){
+
+			wp_enqueue_script('spaceboxes-lb');
+			wp_enqueue_style('spaceboxes-lb-style');
+
+			?>
+			<!-- EDD Galleries SC Instantiation -->
+			<script>
+				jQuery(document).ready(function(){
+					jQuery('.space-boxes.space-boxes-<?php echo $hash;?> .swipebox').swipebox();
+				});
+			</script>
+
+		<?php }
+
+		// load styles & scripts
+		wp_enqueue_style('spaceboxes-style');
 
 		// print the shortcode
 		$out = sprintf('<section class="clearfix space-boxes space-boxes-%s %s">',$hash,$cols);
@@ -79,7 +99,15 @@ class ba_SpaceBoxes_SC {
 					$img_title 	  	= $image->post_title;
 					$get_caption 	= $image->post_excerpt;
 					$get_desc  		= $image->post_content;
-					$image 		 	= wp_get_attachment_image($image->ID, 'spacebox-small', false, array('class' => 'spacebox-box-image'));
+
+					$getimage = wp_get_attachment_image($image->ID, 'spacebox-small', false, array('class' => 'spacebox-box-image'));
+					$getimgsrc = wp_get_attachment_image_src($image->ID,'large');
+
+					if('on' == $atts['lightbox']) {
+						$image 		= sprintf('<a class="swipebox" href="%s" title="%s">%s</a>',$getimgsrc[0],$img_title,$getimage);
+					} else {
+						$image 		= wp_get_attachment_image($image->ID, 'spacebox-small', false, array('class' => 'spacebox-box-image'));
+					}
 
 		            $title 	= $img_title ? sprintf('<h3 itemprop="title" class="spacebox-box-title">%s</h3>',$img_title) : false;
 		            $caption = $get_caption ? sprintf('<p class="spacebox-box-caption">%s</p>',$get_caption) : false;
