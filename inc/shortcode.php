@@ -17,8 +17,8 @@ class ba_SpaceBoxes_SC {
 
 	function __construct() {
 
-        add_shortcode('spaceboxes', array($this,'space_boxes_sc'));
-        add_action ('wp_enqueue_scripts', array($this,'register_scripts'));
+		add_action ('wp_enqueue_scripts', 	array($this,'register_scripts'));
+        add_shortcode ('spaceboxes', 		array($this,'space_boxes_sc'));
 
 	}
 
@@ -76,7 +76,7 @@ class ba_SpaceBoxes_SC {
 
 				foreach($images as $image):
 
-	               	?><div class="spacebox"><?php echo wp_get_attachment_image($image->ID, 'thumbnail') ?></div><?php
+	               	?><div class="spacebox"><?php echo wp_get_attachment_image($image->ID, 'thumbnail'); ?></div><?php
 
 	            endforeach;
 
