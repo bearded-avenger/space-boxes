@@ -13,8 +13,17 @@ class ba_SpaceBoxes_FarOut_Man {
 	function __construct() {
 
 		require_once('inc/type.php' );
+		require_once('inc/settings.php' );
 		require_once('inc/spacebox-meta.php' );
 		require_once('inc/shortcode.php' );
+		require_once('updater.php');
+
+		// Load Updater
+		if( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
+			// load our custom updater
+			include( 'EDD_SL_Plugin_Updater.php' );
+		}
+
 		add_action('init', 	array($this,'image_sizes'));
 	}
 
