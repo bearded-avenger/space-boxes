@@ -23,6 +23,7 @@ class ba_SpaceBoxes_SC {
 	}
 
 	function register_scripts(){
+
 		wp_register_style('spaceboxes-style', plugins_url( '../css/spaceboxes.css', __FILE__ ), self::version );
 
 		// swipebox
@@ -37,9 +38,6 @@ class ba_SpaceBoxes_SC {
 			'id'		=> '',
 			'columns'	=> 3,
 			'layout'	=> 'stack',
-			'icon' 		=> 'off',
-			'image' 	=> 'on',
-			'title' 	=> 'on',
 			'lightbox' 	=> 'off'
 		);
 		$atts 	  = shortcode_atts($defaults, $atts);
@@ -125,14 +123,28 @@ class ba_SpaceBoxes_SC {
 			'category'		=> '',
 			'columns'		=> 3
 		);
-		
+
 		$atts 	  = shortcode_atts($defaults, $atts);
 
-		$args = array(
-			'post_type' => 'spaceboxes',
-			'posts_per_page' => 100,
+		if($atts['category']){
+			$args = array(
+				'post_type' => 'spaceboxes',
+				'posts_per_page' => 100,
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'spacebox-categories',
+						'field' => 'name',
+						'terms' => array($atts['category'])
+					)
+				)
+			);
+    	} else {
+			$args = array(
+				'post_type' => 'spaceboxes',
+				'posts_per_page' => 100,
 
-		);
+			);
+		}
 
 		$q = new wp_query($args);
 

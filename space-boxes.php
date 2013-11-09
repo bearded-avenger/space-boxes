@@ -16,6 +16,7 @@ class ba_SpaceBoxes_FarOut_Man {
 		require_once('inc/settings.php' );
 		require_once('inc/spacebox-meta.php' );
 		require_once('inc/shortcode.php' );
+		require_once('inc/columns.php');
 		require_once('updater.php');
 
 		// Load Updater

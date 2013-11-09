@@ -56,7 +56,7 @@ class ba_spaceboxes_settings_api {
         $sections = array(
             array(
                 'id' => 'ba_spacebox_settings',
-                'title' => __( 'Setup', 'projects-part-deux' )
+                'title' => __( 'Setup', 'space-boxes' )
             )
         );
         return $sections;
@@ -67,8 +67,8 @@ class ba_spaceboxes_settings_api {
             'ba_spacebox_settings' => array(
             	array(
                     'name' => 'projects_domain',
-                    'label' => __( 'Naming Convention', 'projects-part-deux' ),
-                    'desc' => __( 'By default its called Projects. You can rename this to something like, portfolio.', 'projects-part-deux' ),
+                    'label' => __( 'Naming Convention', 'space-boxes' ),
+                    'desc' => __( 'By default its called Projects. You can rename this to something like, portfolio.', 'space-boxes' ),
                     'type' => 'text',
                     'std' => 'projects',
                     'sanitize_callback' => ''

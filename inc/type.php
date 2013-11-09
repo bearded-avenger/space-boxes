@@ -29,7 +29,7 @@ class ba_SpaceBoxes_type {
 			'singular_name'       		=> _x( 'Space Box', 'Post Type Singular Name', 'space-boxes' ),
 			'menu_name'           		=> __( 'Space Boxes', 'space-boxes' ),
 			'parent_item_colon'   		=> __( 'Parent Space Box:', 'space-boxes' ),
-			'all_items'           		=> __( 'All Space Boxs', 'space-boxes' ),
+			'all_items'           		=> __( 'All Space Boxes', 'space-boxes' ),
 			'view_item'           		=> __( 'View Space Box', 'space-boxes' ),
 			'add_new_item'        		=> __( 'Add New Space Box', 'space-boxes' ),
 			'add_new'             		=> __( 'New Space Box', 'space-boxes' ),
