@@ -17,9 +17,9 @@ class ba_SpaceBoxes_SC {
 
 	function __construct() {
 
-		add_action ('wp_enqueue_scripts', 	array($this,'register_scripts'));
-        add_shortcode ('spaceboxes', 		array($this,'space_boxes_sc'));
-
+		add_action ('wp_enqueue_scripts', array($this,'register_scripts'));
+        add_shortcode ('spaceboxes', array($this,'space_boxes_sc'));
+		add_shortcode ('spaceboxes_archive', array($this,'space_box_archive_sc'));
 	}
 
 	function register_scripts(){
@@ -119,7 +119,11 @@ class ba_SpaceBoxes_SC {
 
 	}
 
-   function get_match( $regex, $content ) {
+	function space_box_archive_sc($atts,$content = null){
+
+	}
+
+   	function get_match( $regex, $content ) {
         preg_match($regex, $content, $matches);
         return $matches[1];
     }
