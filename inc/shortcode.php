@@ -107,9 +107,9 @@ class ba_SpaceBoxes_SC {
 				}
 
 	            $title 			= $img_title ? sprintf('<h3 itemprop="title" class="spacebox-box-title">%s</h3>',$img_title) : false;
-	            $caption 		= $get_caption ? sprintf('<p class="spacebox-box-caption">%s</p>',$get_caption) : false;
+	            $caption 		= $get_caption ? sprintf('<figcaption class="spacebox-box-caption">%s</figcaption>',$get_caption) : false;
 
-               	$out 			.= sprintf('<div class="spacebox">%s%s%s</div>',$image,$title,$caption);
+               	$out 			.= sprintf('<figure class="spacebox">%s%s%s</figure>',$image,$title,$caption);
 
             endforeach;
 
