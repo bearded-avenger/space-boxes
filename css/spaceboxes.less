@@ -9,8 +9,42 @@
     }
 }
 
+.spacehover() {
+    &:hover {
+        &:before {
+            opacity:1.0;
+        }
+    }
+
+    &:before {
+        content: '+';
+        position: absolute;
+        font-size:13px;
+        line-height:20px;
+        //.transition(all 0.4s ease);
+        opacity:0.5;
+        border-radius:50%;
+        background: fadeout(#222,15);
+        height:20px;
+        width:20px;
+        text-align: center;
+        color:#999;
+        left:46%;
+        top:47.5%;
+    }
+}
+
+#page .spacebox-link,
 .spacebox-link {
     display: block;
+    text-decoration: none;
+    color:#444;
+    position: relative;
+    .spacehover();
+
+    &:before {
+        top:40%;
+    }
 }
 
 .space-boxes {
@@ -28,6 +62,7 @@
     	line-height: 0;
     	margin-right:2%;
         vertical-align: top;
+        color:#444;
 
         &:last-child {
             margin-right:0;
@@ -35,6 +70,9 @@
 
         .swipebox {
             display: block;
+            position: relative;
+
+            .spacehover();
         }
 
         .spacebox-box-title {

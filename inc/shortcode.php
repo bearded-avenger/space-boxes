@@ -121,17 +121,24 @@ class ba_SpaceBoxes_SC {
 
 	function space_box_archive_sc($atts,$content = null){
 		// shortcode defaults
-		$defaults = array('category'		=> '');
+		$defaults = array(
+			'category'		=> '',
+			'columns'		=> 3
+		);
+		
 		$atts 	  = shortcode_atts($defaults, $atts);
 
 		$args = array(
 			'post_type' => 'spaceboxes',
 			'posts_per_page' => 100,
+
 		);
 
 		$q = new wp_query($args);
 
-		$out = sprintf('<section class="space-boxes space-boxes-archive">');
+		$cols = sprintf('space-boxes-col%s',$atts['columns']);
+
+		$out = sprintf('<section class="space-boxes space-boxes-archive %s">',$cols);
 
 			if ($q->have_posts()) : while($q->have_posts()) : $q->the_post();
 
