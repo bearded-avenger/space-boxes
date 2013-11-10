@@ -27,7 +27,6 @@ class ba_SpaceBoxes_SC {
 		wp_register_style('spaceboxes-style', plugins_url( '../css/spaceboxes.css', __FILE__ ), self::version );
 
 		// swipebox
-		wp_register_style( 'spaceboxes-lb-style', plugins_url( '../libs/swipebox/swipebox.css', __FILE__ ), self::version, true);
 		wp_register_script('spaceboxes-lb',       plugins_url( '../libs/swipebox/jquery.swipebox.min.js', __FILE__ ), array('jquery'), self::version, true);
 	}
 
@@ -76,7 +75,6 @@ class ba_SpaceBoxes_SC {
 		if ('on' == $atts['lightbox']){
 
 			wp_enqueue_script('spaceboxes-lb');
-			wp_enqueue_style('spaceboxes-lb-style');
 
 			?>
 			<!-- Space Boxes by @nphaskins -->
@@ -192,7 +190,7 @@ class ba_SpaceBoxes_SC {
 
 					$out .= sprintf('<div class="spacebox col-sm-%s"><a class="spacebox-link" href="%s">%s%s</a></div>',$atts['itemcolumns'],$link,$image, $title);
 
-					if ( ( 0 == $index % $atts['columns'] ) && ( $index < $count )) {
+					if ( ( 0 == $index % $atts['columns'] ) && ( $index < $count ) ) {
 						$out .= sprintf('</div><div class="row">');
 					}
 
