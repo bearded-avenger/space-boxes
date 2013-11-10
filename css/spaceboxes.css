@@ -3,8 +3,7 @@
 #page .spacebox-link:before,.spacebox-link:before{top:40%}
 .space-boxes:before,.space-boxes:after{content:" ";display:table}
 .space-boxes:after{clear:both}
-.space-boxes.space-boxes-col3 .spacebox{width:31.999%}
-.space-boxes .spacebox{display:inline-block;line-height:0;margin-right:2%;vertical-align:top;color:#444}.space-boxes .spacebox:last-child{margin-right:0}
+.space-boxes .spacebox{color:#444}.space-boxes .spacebox:last-child{margin-right:0}
 .space-boxes .spacebox .swipebox{display:block;position:relative}.space-boxes .spacebox .swipebox:hover:before{opacity:1}
 .space-boxes .spacebox .swipebox:before{content:'+';position:absolute;font-size:13px;line-height:20px;opacity:.5;border-radius:50%;background:rgba(34,34,34,0.85);height:20px;width:20px;text-align:center;color:#999;left:46%;top:47.5%}
 .space-boxes .spacebox .spacebox-box-title{margin:10px auto 0;font-size:1.2em;line-height:1em}
