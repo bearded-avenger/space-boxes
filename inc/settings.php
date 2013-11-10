@@ -44,7 +44,7 @@ class ba_spaceboxes_settings_api {
 	function submenu_page_callback() {
 
 		echo '<div class="wrap"><div id="icon-tools" class="icon32"></div>';
-			echo '<h2>Spaceboxes Settings</h2>';
+			echo '<h2>Space Boxes Settings</h2>';
 			//$this->settings_api->show_navigation();
         	$this->settings_api->show_forms();
 
@@ -56,7 +56,7 @@ class ba_spaceboxes_settings_api {
         $sections = array(
             array(
                 'id' => 'ba_spacebox_settings',
-                'title' => __( 'Setup', 'space-boxes' )
+                'title' => __( 'Space Box Options', 'space-boxes' )
             )
         );
         return $sections;
@@ -65,13 +65,33 @@ class ba_spaceboxes_settings_api {
     function get_settings_fields() {
         $settings_fields = array(
             'ba_spacebox_settings' => array(
-            	array(
-                    'name' => 'projects_domain',
-                    'label' => __( 'Naming Convention', 'space-boxes' ),
-                    'desc' => __( 'By default its called Projects. You can rename this to something like, portfolio.', 'space-boxes' ),
-                    'type' => 'text',
-                    'std' => 'projects',
-                    'sanitize_callback' => ''
+                array(
+                    'name' => 'text_color',
+                    'label' => __( 'Text Color', 'wedevs' ),
+                    'desc' => __( 'Color description', 'wedevs' ),
+                    'type' => 'color',
+                    'default' => '#333'
+                ),
+               	array(
+                    'name' => 'accent_color',
+                    'label' => __( 'Accent Color', 'wedevs' ),
+                    'desc' => __( 'Color description', 'wedevs' ),
+                    'type' => 'color',
+                    'default' => '#333'
+                ),
+                array(
+                    'name' => 'lb_bg',
+                    'label' => __( 'Lightbox Background Color', 'wedevs' ),
+                    'desc' => __( 'Color description', 'wedevs' ),
+                    'type' => 'color',
+                    'default' => '#000'
+                ),
+                array(
+                    'name' => 'lb_txt',
+                    'label' => __( 'Lightbox Text Color', 'wedevs' ),
+                    'desc' => __( 'Color description', 'wedevs' ),
+                    'type' => 'color',
+                    'default' => '#EAEAEA'
                 )
             )
         );

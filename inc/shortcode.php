@@ -37,6 +37,7 @@ class ba_SpaceBoxes_SC {
 		$defaults = array(
 			'id'		=> '',
 			'columns'	=> 3,
+			'size'		=> 'spacebox-small',
 			'layout'	=> 'stack',
 			'lightbox' 	=> 'off'
 		);
@@ -65,8 +66,11 @@ class ba_SpaceBoxes_SC {
 		$images = get_posts($args);
 
 		// setup vars
-		$hash = rand();
-		$cols = sprintf('space-boxes-col%s',$atts['columns']);
+		$hash 	= rand();
+		$cols 	= sprintf('space-boxes-col%s',$atts['columns']);
+		$opts 	= get_option('ba_spacebox_settings');
+		$lb_txt = isset($opts['lb_txt']) ? $opts['lb_txt'] : false;
+		$lb_bg 	= isset($opts['lb_bg']) ? $opts['lb_bg'] : false;
 
 		// load lightbox stuffs on demand
 		if ('on' == $atts['lightbox']){
@@ -81,6 +85,14 @@ class ba_SpaceBoxes_SC {
 					jQuery('.space-boxes.space-boxes-<?php echo $hash;?> .swipebox').swipebox();
 				});
 			</script>
+			<?php if ($lb_txt || $lb_bg): ?>
+				<style>
+					body #swipebox-action,
+					body #swipebox-caption,
+					body #swipebox-overlay { background: <?php echo $lb_bg;?>;border:none;}
+					body #swipebox-caption { color: <?php echo $lb_txt;?> !important;border:none;text-shadow:none;}
+				</style>
+			<?php endif; ?>
 
 		<?php }
 
@@ -95,13 +107,13 @@ class ba_SpaceBoxes_SC {
 				$img_title 	  	= $image->post_title;
 				$get_caption 	= $image->post_excerpt;
 				$get_desc  		= $image->post_content;
-				$getimage 		= wp_get_attachment_image($image->ID, 'spacebox-small', false, array('class' => 'spacebox-box-image'));
+				$getimage 		= wp_get_attachment_image($image->ID, $atts['size'], false, array('class' => 'spacebox-box-image'));
 				$getimgsrc 		= wp_get_attachment_image_src($image->ID,'large');
 
 				if('on' == $atts['lightbox']) {
 					$image 		= sprintf('<a class="swipebox" href="%s" title="%s">%s</a>',$getimgsrc[0],$img_title,$getimage);
 				} else {
-					$image 		= wp_get_attachment_image($image->ID, 'spacebox-small', false, array('class' => 'spacebox-box-image'));
+					$image 		= wp_get_attachment_image($image->ID, $atts['size'], false, array('class' => 'spacebox-box-image'));
 				}
 
 	            $title 			= $img_title ? sprintf('<h3 itemprop="title" class="spacebox-box-title">%s</h3>',$img_title) : false;
