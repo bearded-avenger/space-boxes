@@ -102,7 +102,6 @@ class ba_SpaceBoxes_SC {
 		// print the shortcode
 		$out = sprintf('<section class="clearfix space-boxes space-boxes-%s">',$hash);
 
-
 			$index = 0;
 
 			$out .= sprintf('<div class="row">');
@@ -118,7 +117,7 @@ class ba_SpaceBoxes_SC {
 					$getimage 		= wp_get_attachment_image($image->ID, $atts['size'], false, array('class' => 'spacebox-box-image'));
 					$getimgsrc 		= wp_get_attachment_image_src($image->ID,'large');
 
-					if('on' == $atts['lightbox']) {
+					if ('on' == $atts['lightbox']) {
 						$image 		= sprintf('<a class="swipebox" href="%s" title="%s">%s</a>',$getimgsrc[0],$img_title,$getimage);
 					} else {
 						$image 		= wp_get_attachment_image($image->ID, $atts['size'], false, array('class' => 'spacebox-box-image'));
@@ -129,7 +128,7 @@ class ba_SpaceBoxes_SC {
 
 	               	$out 			.= sprintf('<figure class="spacebox col-sm-%s">%s%s%s</figure>',$atts['itemcolumns'],$image,$title,$caption);
 
-	               	if ( (0 == $index % $atts['columns']) && ($index < $count)) {
+	               	if ( ( 0 == $index % $atts['columns'] ) && ( $index < $count )) {
 						$out .= sprintf('</div><div class="row">');
 					}
 
@@ -147,12 +146,13 @@ class ba_SpaceBoxes_SC {
 		// shortcode defaults
 		$defaults = array(
 			'category'		=> '',
-			'columns'		=> 3
+			'columns'		=> 3,
+			'itemcolumns'	=> 4,
 		);
 
 		$atts 	  = shortcode_atts($defaults, $atts);
 
-		if($atts['category']){
+		if ($atts['category']){
 			$args = array(
 				'post_type' => 'spaceboxes',
 				'posts_per_page' => 100,
@@ -174,19 +174,31 @@ class ba_SpaceBoxes_SC {
 
 		$q = new wp_query($args);
 
-		$cols = sprintf('space-boxes-col%s',$atts['columns']);
+		$count = $q->post_count;
 
-		$out = sprintf('<section class="space-boxes space-boxes-archive %s">',$cols);
+		$out = sprintf('<section class="space-boxes space-boxes-archive">');
 
-			if ($q->have_posts()) : while($q->have_posts()) : $q->the_post();
+			$index = 0;
 
-				$title = sprintf('<h3 itemprop="title" class="spacebox-box-title">%s</h3>', get_the_title());
-				$image = sprintf('%s', get_the_post_thumbnail(get_the_ID(), 'spacebox-small', false, array('class' => 'spacebox-box-image')));
-				$link = get_post_meta(get_the_ID(),'ba_spacebox_single_link', true) ? get_post_meta(get_the_ID(),'ba_spacebox_single_link', true) : false;
+			$out .= sprintf('<div class="row">');
 
-				$out .= sprintf('<div class="spacebox"><a class="spacebox-link" href="%s">%s%s</a></div>',$link,$image, $title);
+				if ($q->have_posts()) : while($q->have_posts()) : $q->the_post();
 
-			endwhile;endif; wp_reset_query();
+					$index++;
+
+					$title = sprintf('<h3 itemprop="title" class="spacebox-box-title">%s</h3>', get_the_title());
+					$image = sprintf('%s', get_the_post_thumbnail(get_the_ID(), 'spacebox-small', false, array('class' => 'spacebox-box-image')));
+					$link = get_post_meta(get_the_ID(),'ba_spacebox_single_link', true) ? get_post_meta(get_the_ID(),'ba_spacebox_single_link', true) : false;
+
+					$out .= sprintf('<div class="spacebox col-sm-%s"><a class="spacebox-link" href="%s">%s%s</a></div>',$atts['itemcolumns'],$link,$image, $title);
+
+					if ( ( 0 == $index % $atts['columns'] ) && ( $index < $count )) {
+						$out .= sprintf('</div><div class="row">');
+					}
+
+				endwhile;endif; wp_reset_query();
+
+			$out .= sprintf('</div>');
 
 		$out .= sprintf('</section>');
 
