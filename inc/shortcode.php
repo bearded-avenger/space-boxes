@@ -40,10 +40,13 @@ class ba_SpaceBoxes_SC {
 			'id'			=> '',
 			'columns'		=> 3,
 			'itemcolumns'	=> 4,
-			'size'			=> 'spacebox-small', // available atts iclude - spacebox-small-nocrop, spacebox-medium, spacebox-medium-nocrop
-			'layout'		=> '', //available atts include - portfolio
-			'lightbox' 		=> 'off' // available atts include - on
+			'lightbox' 		=> 'off', // available atts include | on
+			'size'			=> 'spacebox-small', // available atts iclude | spacebox-small-nocrop, spacebox-medium, spacebox-medium-nocrop
+			'layout'		=> 'stacked', //available atts include | pinterest
+			'pinwidth' 		=> 300, // width of pinterest item
+			'pinspace' 		=> 5, // margin in between pins
 		);
+
 		$atts 	  = shortcode_atts($defaults, $atts);
 
 		// get the post via ID so we can access data and print it within an array to fetch
@@ -107,8 +110,8 @@ class ba_SpaceBoxes_SC {
 		// load styles & scripts
 		wp_enqueue_style('spaceboxes-style');
 
-		// load wookmark if portfolio layout is chosen
-		if ( 'portfolio' == $atts['layout']):
+		// load wookmark if pinterest layout is chosen
+		if ( 'pinterest' == $atts['layout']):
 			wp_enqueue_script('spaceboxes-wook');
 
 			?>
@@ -117,12 +120,11 @@ class ba_SpaceBoxes_SC {
 				    jQuery('.space-boxes.space-boxes-<?php echo $hash;?>').imagesLoaded(function() {
 				        var options = {
 				          	autoResize: true,
-				          	container: jQuery('.space-boxes'),
-				          	offset: 5,
-				          	outerOffset: 0,
-				          	flexibleWidth: 300
+				          	container: jQuery('.space-boxes.space-boxes-<?php echo $hash;?>'),
+				          	offset: <?php echo $atts['pinspace'];?>,
+				          	flexibleWidth: <?php echo $atts['pinwidth'];?>
 				        };
-				        var handler = jQuery('.space-boxes figure');
+				        var handler = jQuery('.space-boxes.space-boxes-<?php echo $hash;?> figure');
 				        jQuery(handler).wookmark(options);
 				    });
 				});
@@ -132,8 +134,8 @@ class ba_SpaceBoxes_SC {
 		// print the shortcode
 		$out = sprintf('<section class="clearfix space-boxes space-boxes-%s">',$hash);
 
-			// load portfolio view if portfolio is chosen
-			if ( 'portfolio' == $atts['layout']):
+			// load pinterest view if pinterest is chosen
+			if ( 'pinterest' == $atts['layout']):
 
 				foreach($images as $image):
 

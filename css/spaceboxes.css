@@ -71,7 +71,7 @@
 .space-boxes .spacebox .swipebox{display:block;position:relative}.space-boxes .spacebox .swipebox:hover:before{opacity:.9;filter:alpha(opacity=90)}
 .space-boxes .spacebox .swipebox:before{content:'+';position:absolute;opacity:.35;filter:alpha(opacity=35);border-radius:50%;font-size:40px;line-height:1em;height:1em;width:1em;text-align:center;background:rgba(34,34,34,0.5);color:#e9e9e9;left:50%;top:50%;margin:-0.5em 0 0 -0.5em;-webkit-transition:opacity .2s linear;transition:opacity .2s linear}
 .space-boxes .spacebox .spacebox-box-title{margin:5px auto 0;font-size:1.2em;line-height:1em}
-.space-boxes .spacebox .spacebox-box-image{max-width:100%;height:auto;border-radius:3px;-webkit-box-shadow:0 1px 4px rgba(0,0,0,0.2);box-shadow:0 1px 4px rgba(0,0,0,0.2)}
+.space-boxes .spacebox .spacebox-box-image{max-width:100%;height:auto}
 .space-boxes .spacebox .spacebox-box-caption{margin:6px 0 0;font-size:.95em;line-height:1.35em}
 #swipebox-overlay{background:#0d0d0d}
 #swipebox-action,#swipebox-caption{text-shadow:1px 1px 1px #000;background-color:#0d0d0d;opacity:.95}
