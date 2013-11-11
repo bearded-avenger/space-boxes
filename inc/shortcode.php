@@ -43,7 +43,7 @@ class ba_SpaceBoxes_SC {
 			'lightbox' 		=> 'off', // available atts include | on
 			'size'			=> 'spacebox-small', // available atts iclude | spacebox-small-nocrop, spacebox-medium, spacebox-medium-nocrop
 			'layout'		=> 'stacked', //available atts include | pinterest
-			'pinwidth' 		=> 300, // width of pinterest item
+			'pinwidth' 		=> 300, // width of pinterest item | 300 or '50%' or '33.333%'
 			'pinspace' 		=> 5, // margin in between pins
 		);
 
