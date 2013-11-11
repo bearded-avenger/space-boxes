@@ -18,22 +18,22 @@
 
     &:hover {
         &:before {
-            opacity:1.0;
+            .opacity(0.9);
         }
     }
 
     &:before {
         content: '+';
         position: absolute;
-        opacity:0.5;
+        .opacity(.35);
         border-radius:50%;
         font-size: 40px;
         line-height: 1em;
         height: 1em;
         width: 1em;
         text-align: center;
-        background: fadeout(#222,35);
-        color:#999;
+        background: fadeout(#222,50);
+        color:#e9e9e9;
         left:50%;
         top:50%;
         margin: -0.5em 0 0 -0.5em;
@@ -55,10 +55,12 @@
 }
 
 .space-boxes {
+    position: relative;
     .clearfix();
 
     .spacebox {
         color:#444;
+        line-height: 0;
 
         &:last-child {
             margin-right:0;
@@ -72,7 +74,7 @@
         }
 
         .spacebox-box-title {
-            margin:10px auto 0;
+            margin:5px auto 0;
             font-size:1.2em;
             line-height: 1em;
         }
@@ -80,6 +82,8 @@
         .spacebox-box-image {
             max-width: 100%;
             height:auto;
+            border-radius: 3px;
+            .box-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
         }
         .spacebox-box-caption {
             margin:6px 0 0;
@@ -87,9 +91,33 @@
             line-height: 1.35em;
         }
     }
+
+    &.img-left {
+
+    }
+    &.img-right {
+
+    }
 }
 
-//swipebox
+// swipebox skin
+#swipebox-overlay {
+  background: #0d0d0d;
+}
+
+#swipebox-action, #swipebox-caption {
+  text-shadow: 1px 1px 1px black;
+  background-color: #0d0d0d;
+  opacity: 0.95;
+}
+
+#swipebox-caption {
+  font-size: 15px;
+  line-height: 43px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+//swipebox core dont touch
 html.swipebox {
   overflow: hidden!important;
 }
@@ -321,24 +349,4 @@ html.swipebox {
     right: 0;
   }
 }
-
-
-/* Skin 
---------------------------*/
-#swipebox-overlay {
-  background: #0d0d0d;
-}
-
-#swipebox-action, #swipebox-caption {
-  text-shadow: 1px 1px 1px black;
-  background-color: #0d0d0d;
-  opacity: 0.95;
-}
-
-#swipebox-caption {
-  font-size: 15px;
-  line-height: 43px;
-  font-family: Helvetica, Arial, sans-serif;
-}
-
 

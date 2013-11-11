@@ -27,7 +27,10 @@ class ba_SpaceBoxes_SC {
 		wp_register_style('spaceboxes-style', plugins_url( '../css/spaceboxes.css', __FILE__ ), self::version );
 
 		// swipebox
-		wp_register_script('spaceboxes-lb',       plugins_url( '../libs/swipebox/jquery.swipebox.min.js', __FILE__ ), array('jquery'), self::version, true);
+		wp_register_script('spaceboxes-lb',   plugins_url( '../libs/swipebox/jquery.swipebox.min.js', __FILE__ ), array('jquery'), self::version, true);
+
+		// wookmark
+		wp_register_script('spaceboxes-wook',   		plugins_url( '../libs/wookmark/jquery.wookmark.min.js', __FILE__ ), array('jquery'), self::version, true);
 	}
 
 	function space_boxes_sc($atts,$content = null){
@@ -66,10 +69,11 @@ class ba_SpaceBoxes_SC {
 		$images = get_posts($args);
 
 		// setup vars
-		$hash 	= rand();
-		$opts 	= get_option('ba_spacebox_settings');
-		$lb_txt = isset($opts['lb_txt']) ? $opts['lb_txt'] : false;
-		$lb_bg 	= isset($opts['lb_bg']) ? $opts['lb_bg'] : false;
+		$hash 		= rand();
+		$opts 		= get_option('ba_spacebox_settings');
+		$lb_txt 	= isset($opts['lb_txt']) ? $opts['lb_txt'] : false;
+		$lb_bg 		= isset($opts['lb_bg']) ? $opts['lb_bg'] : false;
+		$accent 	= isset($opts['accent_color']) ? $opts['accent_color'] : false;
 
 		// load lightbox stuffs on demand
 		if ('on' == $atts['lightbox']){
@@ -77,43 +81,69 @@ class ba_SpaceBoxes_SC {
 			wp_enqueue_script('spaceboxes-lb');
 
 			?>
-			<!-- Space Boxes by @nphaskins -->
+			<!-- Space Boxes - Scripts -->
 			<script>
 				jQuery(document).ready(function(){
 					jQuery('.space-boxes.space-boxes-<?php echo $hash;?> .swipebox').swipebox();
 				});
 			</script>
-			<?php if ($lb_txt || $lb_bg): ?>
-				<style>
-					body #swipebox-action,
-					body #swipebox-caption,
-					body #swipebox-overlay { background: <?php echo $lb_bg;?>;border:none;}
-					body #swipebox-caption { color: <?php echo $lb_txt;?> !important;border:none;text-shadow:none;}
-				</style>
-			<?php endif; ?>
 
 		<?php }
+
+		if ($lb_txt || $lb_bg || $accent): 
+			?>
+			<!-- Space Boxes - Styles -->
+			<style>
+				body #swipebox-action,
+				body #swipebox-caption,
+				body #swipebox-overlay { background: <?php echo $lb_bg;?>;border:none;}
+				body #swipebox-caption { color: <?php echo $lb_txt;?> !important;border:none;text-shadow:none;}
+				body .spacebox .swipebox:before {
+					background:<?php echo $accent;?>;
+				}
+			</style>
+		<?php endif;
 
 		// load styles & scripts
 		wp_enqueue_style('spaceboxes-style');
 
+		// load wookmark
+		if ( 'portfolio' == $atts['layout']):
+			wp_enqueue_script('spaceboxes-wook');
+
+			?>
+			<script>
+				jQuery(document).ready(function(){
+				    jQuery('.space-boxes').imagesLoaded(function() {
+				        // Prepare layout options.
+				        var options = {
+				          	autoResize: true, // This will auto-update the layout when the browser window is resized.
+				          	container: jQuery('.space-boxes'), // Optional, used for some extra CSS styling
+				          	offset: 5,
+				          	outerOffset: 0,
+				          	flexibleWidth: 300
+				        };
+
+				        // Get a reference to your grid items.
+				        var handler = jQuery('.space-boxes figure');
+
+				        // Call the layout function.
+				        jQuery(handler).wookmark(options);
+				    });
+				});
+			</script><?php
+		endif;
+
 		// print the shortcode
 		$out = sprintf('<section class="clearfix space-boxes space-boxes-%s">',$hash);
 
-			$index = 0;
-
-			$out .= sprintf('<div class="row">');
+			if ( 'portfolio' == $atts['layout']):
 
 				foreach($images as $image):
 
-					$index++;
-					$count = count($images);
-
-					$img_title 	  	= $image->post_title;
-					$get_caption 	= $image->post_excerpt;
-					$get_desc  		= $image->post_content;
 					$getimage 		= wp_get_attachment_image($image->ID, $atts['size'], false, array('class' => 'spacebox-box-image'));
 					$getimgsrc 		= wp_get_attachment_image_src($image->ID,'large');
+					$img_title 	  	= $image->post_title;
 
 					if ('on' == $atts['lightbox']) {
 						$image 		= sprintf('<a class="swipebox" href="%s" title="%s">%s</a>',$getimgsrc[0],$img_title,$getimage);
@@ -121,18 +151,47 @@ class ba_SpaceBoxes_SC {
 						$image 		= wp_get_attachment_image($image->ID, $atts['size'], false, array('class' => 'spacebox-box-image'));
 					}
 
-		            $title 			= $img_title ? sprintf('<h3 itemprop="title" class="spacebox-box-title">%s</h3>',$img_title) : false;
-		            $caption 		= $get_caption ? sprintf('<figcaption class="spacebox-box-caption">%s</figcaption>',$get_caption) : false;
-
-	               	$out 			.= sprintf('<figure class="spacebox col-sm-%s">%s%s%s</figure>',$atts['itemcolumns'],$image,$title,$caption);
-
-	               	if ( ( 0 == $index % $atts['columns'] ) && ( $index < $count )) {
-						$out .= sprintf('</div><div class="row">');
-					}
+	               	$out 			.= sprintf('<figure class="spacebox">%s</figure>',$image);
 
 	            endforeach;
 
-			$out .= sprintf('</div>');
+			else:
+
+				$index = 0;
+
+				$out .= sprintf('<div class="row">');
+
+					foreach($images as $image):
+
+						$index++;
+						$count = count($images);
+
+						$img_title 	  	= $image->post_title;
+						$get_caption 	= $image->post_excerpt;
+						$get_desc  		= $image->post_content;
+						$getimage 		= wp_get_attachment_image($image->ID, $atts['size'], false, array('class' => 'spacebox-box-image'));
+						$getimgsrc 		= wp_get_attachment_image_src($image->ID,'large');
+
+						if ('on' == $atts['lightbox']) {
+							$image 		= sprintf('<a class="swipebox" href="%s" title="%s">%s</a>',$getimgsrc[0],$img_title,$getimage);
+						} else {
+							$image 		= wp_get_attachment_image($image->ID, $atts['size'], false, array('class' => 'spacebox-box-image'));
+						}
+
+			            $title 			= $img_title ? sprintf('<h3 itemprop="title" class="spacebox-box-title">%s</h3>',$img_title) : false;
+			            $caption 		= $get_caption ? sprintf('<figcaption class="spacebox-box-caption">%s</figcaption>',$get_caption) : false;
+
+		               	$out 			.= sprintf('<figure class="spacebox col-sm-%s">%s%s%s</figure>',$atts['itemcolumns'],$image,$title,$caption);
+
+		               	if ( ( 0 == $index % $atts['columns'] ) && ( $index < $count )) {
+							$out .= sprintf('</div><div class="row">');
+						}
+
+		            endforeach;
+
+				$out .= sprintf('</div>');
+
+			endif;
 
         $out .= sprintf('</section>');
 
