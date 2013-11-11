@@ -115,19 +115,14 @@ class ba_SpaceBoxes_SC {
 			<script>
 				jQuery(document).ready(function(){
 				    jQuery('.space-boxes.space-boxes-<?php echo $hash;?>').imagesLoaded(function() {
-				        // Prepare layout options.
 				        var options = {
-				          	autoResize: true, // This will auto-update the layout when the browser window is resized.
-				          	container: jQuery('.space-boxes'), // Optional, used for some extra CSS styling
+				          	autoResize: true,
+				          	container: jQuery('.space-boxes'),
 				          	offset: 5,
 				          	outerOffset: 0,
 				          	flexibleWidth: 300
 				        };
-
-				        // Get a reference to your grid items.
 				        var handler = jQuery('.space-boxes figure');
-
-				        // Call the layout function.
 				        jQuery(handler).wookmark(options);
 				    });
 				});
