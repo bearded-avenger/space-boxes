@@ -82,6 +82,7 @@ class ba_SpaceBoxes_SC {
 		$lb_txt 	= isset($opts['lb_txt']) ? $opts['lb_txt'] : false;
 		$lb_bg 		= isset($opts['lb_bg']) ? $opts['lb_bg'] : false;
 		$accent 	= isset($opts['accent_color']) ? $opts['accent_color'] : false;
+		$txtcolor 	= isset($opts['text_color']) ? $opts['text_color'] : false;
 
 		// load lightbox stuffs on demand
 		if ('on' == $atts['lightbox']){
@@ -99,7 +100,7 @@ class ba_SpaceBoxes_SC {
 
 		<?php }
 
-		if ($lb_txt || $lb_bg || $accent): 
+		if ($lb_txt || $lb_bg || $accent || $txtcolor): 
 			?>
 			<!-- Space Boxes - Styles -->
 			<style>
@@ -107,8 +108,11 @@ class ba_SpaceBoxes_SC {
 				body #swipebox-caption,
 				body #swipebox-overlay { background: <?php echo $lb_bg;?>;border:none;}
 				body #swipebox-caption { color: <?php echo $lb_txt;?> !important;border:none;text-shadow:none;}
-				body .spacebox .swipebox:before {
+				body .space-boxes .spacebox .swipebox:before {
 					background:<?php echo $accent;?>;
+				}
+				body .space-boxes .spacebox {
+					color:<?php echo $txtcolor;?>;
 				}
 			</style>
 		<?php endif;
@@ -166,7 +170,7 @@ class ba_SpaceBoxes_SC {
 
 				$index = 0;
 
-				$out .= sprintf('<div class="row">');
+				$out .= sprintf('<div class="ba-row">');
 
 					foreach($images as $image):
 
@@ -192,7 +196,7 @@ class ba_SpaceBoxes_SC {
 
 		               	if ( ( 0 == $index % $atts['columns'] ) && ( $index < $count )) {
 
-							$out .= sprintf('</div><div class="row">');
+							$out .= sprintf('</div><div class="ba-row">');
 						}
 
 		            endforeach;
@@ -247,7 +251,7 @@ class ba_SpaceBoxes_SC {
 
 			$index = 0;
 
-			$out .= sprintf('<div class="row">');
+			$out .= sprintf('<div class="ba-row">');
 
 				if ($q->have_posts()) : while($q->have_posts()) : $q->the_post();
 
@@ -260,7 +264,7 @@ class ba_SpaceBoxes_SC {
 					$out .= sprintf('<div class="spacebox col-sm-%s"><a class="spacebox-link" href="%s">%s%s</a></div>',$atts['itemcolumns'],$link,$image, $title);
 
 					if ( ( 0 == $index % $atts['columns'] ) && ( $index < $count ) ) {
-						$out .= sprintf('</div><div class="row">');
+						$out .= sprintf('</div><div class="ba-row">');
 					}
 
 				endwhile;endif; wp_reset_query();
