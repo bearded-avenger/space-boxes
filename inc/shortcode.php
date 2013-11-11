@@ -40,9 +40,9 @@ class ba_SpaceBoxes_SC {
 			'id'			=> '',
 			'columns'		=> 3,
 			'itemcolumns'	=> 4,
-			'size'			=> 'spacebox-small',
-			'layout'		=> 'stack',
-			'lightbox' 		=> 'off'
+			'size'			=> 'spacebox-small', // available atts iclude - spacebox-small-nocrop, spacebox-medium, spacebox-medium-nocrop
+			'layout'		=> '', //available atts include - portfolio
+			'lightbox' 		=> 'off' // available atts include - on
 		);
 		$atts 	  = shortcode_atts($defaults, $atts);
 
@@ -107,14 +107,14 @@ class ba_SpaceBoxes_SC {
 		// load styles & scripts
 		wp_enqueue_style('spaceboxes-style');
 
-		// load wookmark
+		// load wookmark if portfolio layout is chosen
 		if ( 'portfolio' == $atts['layout']):
 			wp_enqueue_script('spaceboxes-wook');
 
 			?>
 			<script>
 				jQuery(document).ready(function(){
-				    jQuery('.space-boxes').imagesLoaded(function() {
+				    jQuery('.space-boxes.space-boxes-<?php echo $hash;?>').imagesLoaded(function() {
 				        // Prepare layout options.
 				        var options = {
 				          	autoResize: true, // This will auto-update the layout when the browser window is resized.
@@ -137,6 +137,7 @@ class ba_SpaceBoxes_SC {
 		// print the shortcode
 		$out = sprintf('<section class="clearfix space-boxes space-boxes-%s">',$hash);
 
+			// load portfolio view if portfolio is chosen
 			if ( 'portfolio' == $atts['layout']):
 
 				foreach($images as $image):
@@ -155,6 +156,7 @@ class ba_SpaceBoxes_SC {
 
 	            endforeach;
 
+	        // else load the info view
 			else:
 
 				$index = 0;
