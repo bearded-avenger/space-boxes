@@ -17,7 +17,8 @@ class ba_SpaceBoxes_SC {
 
 	function __construct() {
 
-		add_action ('wp_enqueue_scripts', array($this,'register_scripts'));
+		add_action ('init', array($this,'register_scripts'));
+		add_action('wp_enqueue_scripts', array($this,'do_jquery'));
         add_shortcode ('spaceboxes', array($this,'space_boxes_sc'));
 		add_shortcode ('spaceboxes_archive', array($this,'space_box_archive_sc'));
 	}
@@ -30,7 +31,11 @@ class ba_SpaceBoxes_SC {
 		wp_register_script('spaceboxes-lb',   plugins_url( '../libs/swipebox/jquery.swipebox.min.js', __FILE__ ), array('jquery'), self::version, true);
 
 		// wookmark
-		wp_register_script('spaceboxes-wook',   		plugins_url( '../libs/wookmark/jquery.wookmark.min.js', __FILE__ ), array('jquery'), self::version, true);
+		wp_register_script('spaceboxes-wook', plugins_url( '../libs/wookmark/jquery.wookmark.min.js', __FILE__ ), array('jquery'), self::version, true);
+	}
+
+	function do_jquery(){
+		wp_enqueue_script('jquery');
 	}
 
 	function space_boxes_sc($atts,$content = null){
@@ -38,8 +43,8 @@ class ba_SpaceBoxes_SC {
 		// shortcode defaults
 		$defaults = array(
 			'id'			=> '',
-			'columns'		=> 3,
-			'itemcolumns'	=> 4,
+			'columns'		=> 4,
+			'itemcolumns'	=> 3,
 			'lightbox' 		=> 'off', // available atts include | on
 			'size'			=> 'spacebox-small', // available atts iclude | spacebox-small-nocrop, spacebox-medium, spacebox-medium-nocrop
 			'layout'		=> 'stacked', //available atts include | pinterest
@@ -81,6 +86,7 @@ class ba_SpaceBoxes_SC {
 		// load lightbox stuffs on demand
 		if ('on' == $atts['lightbox']){
 
+			wp_enqueue_script('jquery');
 			wp_enqueue_script('spaceboxes-lb');
 
 			?>
@@ -112,6 +118,8 @@ class ba_SpaceBoxes_SC {
 
 		// load wookmark if pinterest layout is chosen
 		if ( 'pinterest' == $atts['layout']):
+
+			wp_enqueue_script('jquery');
 			wp_enqueue_script('spaceboxes-wook');
 
 			?>
@@ -183,6 +191,7 @@ class ba_SpaceBoxes_SC {
 		               	$out 			.= sprintf('<figure class="spacebox col-sm-%s">%s%s%s</figure>',$atts['itemcolumns'],$image,$title,$caption);
 
 		               	if ( ( 0 == $index % $atts['columns'] ) && ( $index < $count )) {
+
 							$out .= sprintf('</div><div class="row">');
 						}
 
@@ -199,6 +208,8 @@ class ba_SpaceBoxes_SC {
 	}
 
 	function space_box_archive_sc($atts,$content = null){
+		
+		wp_enqueue_script('jquery');
 		// shortcode defaults
 		$defaults = array(
 			'category'		=> '',

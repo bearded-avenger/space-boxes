@@ -12,9 +12,9 @@ class ba_SpaceBoxes_FarOut_Man {
 
 	function __construct() {
 
+		require_once('inc/spacebox-meta.php' );
 		require_once('inc/type.php' );
 		require_once('inc/settings.php' );
-		require_once('inc/spacebox-meta.php' );
 		require_once('inc/shortcode.php' );
 		require_once('inc/columns.php');
 		require_once('updater.php');
@@ -24,6 +24,10 @@ class ba_SpaceBoxes_FarOut_Man {
 			// load our custom updater
 			include( 'EDD_SL_Plugin_Updater.php' );
 		}
+
+		if( !class_exists( 'CMB_Meta_Box' ) ) {
+    		require_once(dirname( __FILE__ ) .'/libs/custom-meta-boxes/custom-meta-boxes.php' );
+    	}
 
 		add_action('init', 	array($this,'image_sizes'));
 	}
