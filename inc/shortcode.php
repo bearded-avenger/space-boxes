@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class ba_SpaceBoxes_SC {
 
-	const version = '0.1';
+	const version = '1.0';
 
 	function __construct() {
 
