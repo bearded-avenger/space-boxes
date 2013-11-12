@@ -30,6 +30,7 @@ class ba_SpaceBoxes_FarOut_Man {
     	}
 
 		add_action('init', 	array($this,'image_sizes'));
+		add_action( 'init', array($this,'textdomain'));
 	}
 
 	function image_sizes() {
@@ -37,6 +38,10 @@ class ba_SpaceBoxes_FarOut_Man {
 		add_image_size( 'spacebox-small-nocrop',  	220, 9999      );
 		add_image_size( 'spacebox-medium', 			400, 267, true );
 		add_image_size( 'spacebox-medium-nocrop', 	400, 9999      );
+	}
+
+	function textdomain() {
+		load_plugin_textdomain( 'spaceboxes_translation', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
 	}
 
 }
