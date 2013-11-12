@@ -143,8 +143,13 @@ class ba_SpaceBoxes_SC {
 			</script><?php
 		endif;
 
+		$out = '';
+
+		// action
+		$out .= sprintf('%s', do_action('spacebox_before'));
+
 		// print the shortcode
-		$out = sprintf('<section class="clearfix space-boxes space-boxes-%s">',$hash);
+		$out .= sprintf('<section class="clearfix space-boxes space-boxes-%s">',$hash);
 
 			// load pinterest view if pinterest is chosen
 			if ( 'pinterest' == $atts['layout']):
@@ -169,6 +174,9 @@ class ba_SpaceBoxes_SC {
 			else:
 
 				$index = 0;
+
+				// action
+				$out .= sprintf('%s', do_action('spacebox_inside_top'));
 
 				$out .= sprintf('<div class="ba-row">');
 
@@ -203,9 +211,15 @@ class ba_SpaceBoxes_SC {
 
 				$out .= sprintf('</div>');
 
+				// action
+				$out .= sprintf('%s', do_action('spacebox_inside_bottom'));
+
 			endif;
 
         $out .= sprintf('</section>');
+
+        // action
+		$out .= sprintf('%s', do_action('spacebox_after'));
 
 		return apply_filters('space_boxes_output',$out);
 
@@ -247,9 +261,18 @@ class ba_SpaceBoxes_SC {
 
 		$count = $q->post_count;
 
-		$out = sprintf('<section class="space-boxes space-boxes-archive">');
+		$out = '';
+
+		        // action
+		$out .= sprintf('%s', do_action('spacebox_archive_before'));
+
+		$out .= sprintf('<section class="space-boxes space-boxes-archive">');
 
 			$index = 0;
+
+
+		        // action
+			$out .= sprintf('%s', do_action('spacebox_archive_inside_top'));
 
 			$out .= sprintf('<div class="ba-row">');
 
@@ -271,7 +294,13 @@ class ba_SpaceBoxes_SC {
 
 			$out .= sprintf('</div>');
 
+		    // action
+			$out .= sprintf('%s', do_action('spacebox_archive_inside_bottom'));
+
 		$out .= sprintf('</section>');
+
+		// action
+		$out .= sprintf('%s', do_action('spacebox_archive_after'));
 
 		return apply_filters('space_boxes_archive_output',$out);
 
