@@ -217,8 +217,8 @@ class ba_SpaceBoxes_SC {
 		// shortcode defaults
 		$defaults = array(
 			'category'		=> '',
-			'columns'		=> 3,
-			'itemcolumns'	=> 4,
+			'columns'		=> 4,
+			'itemcolumns'	=> 3,
 		);
 
 		$atts 	  = shortcode_atts($defaults, $atts);
