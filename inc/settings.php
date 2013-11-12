@@ -67,29 +67,29 @@ class ba_spaceboxes_settings_api {
             'ba_spacebox_settings' => array(
                 array(
                     'name' => 'text_color',
-                    'label' => __( 'Text Color', 'wedevs' ),
-                    'desc' => __( 'Color description', 'wedevs' ),
+                    'label' => __( 'Text Color', 'space-boxes' ),
+                    'desc' => __( 'Controls the overall text color.', 'space-boxes' ),
                     'type' => 'color',
                     'default' => '#333'
                 ),
                	array(
                     'name' => 'accent_color',
-                    'label' => __( 'Accent Color', 'wedevs' ),
-                    'desc' => __( 'Color description', 'wedevs' ),
+                    'label' => __( 'Accent Color', 'space-boxes' ),
+                    'desc' => __( 'Controls the background color of the plus icon.', 'space-boxes' ),
                     'type' => 'color',
                     'default' => '#333'
                 ),
                 array(
                     'name' => 'lb_bg',
-                    'label' => __( 'Lightbox Background Color', 'wedevs' ),
-                    'desc' => __( 'Color description', 'wedevs' ),
+                    'label' => __( 'Lightbox Background Color', 'space-boxes' ),
+                    'desc' => __( 'Controls the lightbox background color.', 'space-boxes' ),
                     'type' => 'color',
                     'default' => '#000'
                 ),
                 array(
                     'name' => 'lb_txt',
-                    'label' => __( 'Lightbox Text Color', 'wedevs' ),
-                    'desc' => __( 'Color description', 'wedevs' ),
+                    'label' => __( 'Lightbox Text Color', 'space-boxes' ),
+                    'desc' => __( 'Controls the lightbox text color.', 'space-boxes' ),
                     'type' => 'color',
                     'default' => '#EAEAEA'
                 )
