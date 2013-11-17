@@ -17,14 +17,7 @@ class ba_SpaceBoxes_FarOut_Man {
 		require_once('inc/settings.php' );
 		require_once('inc/shortcode.php' );
 		require_once('inc/columns.php');
-		require_once('updater.php');
-
-		// Load Updater
-		if( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
-			// load our custom updater
-			include( 'EDD_SL_Plugin_Updater.php' );
-		}
-
+		
 		if( !class_exists( 'CMB_Meta_Box' ) ) {
     		require_once(dirname( __FILE__ ) .'/libs/custom-meta-boxes/custom-meta-boxes.php' );
     	}
