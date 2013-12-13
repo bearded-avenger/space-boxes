@@ -2,7 +2,7 @@
 
 class spaceboxesUpdater {
 
-	const version = '1.0';
+	const version = '1.1';
 
 	function __construct(){
 

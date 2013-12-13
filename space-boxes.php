@@ -4,7 +4,7 @@ Author: Nick Haskins
 Author URI: http://nickhaskins.com
 Plugin Name: Space Boxes
 Plugin URI: http://nickhaskins.com
-Version: 0.1
+Version: 1.1
 Description: Generate unlimited boxes with multiple layouts and optional lightbox.
 */
 

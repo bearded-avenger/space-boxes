@@ -16,10 +16,10 @@ class baSpaceBoxesGalleryMeta {
 	 	* @return array
 	*/
 	public function add_Link_field_to_media_uploader( $form_fields, $post ) {
-		$form_fields['Link_field'] = array(
-			'label' => __('Link'),
+		$form_fields['link_field'] = array(
+			'label' => __('Image Link'),
 			'value' => get_post_meta( $post->ID, 'space_boxes_img_link', true ),
-			'helps' => __('Set optional imag link.','space-boxes')
+			'helps' => __('Space Boxes image link.','space-boxes')
 		);
 
 		return $form_fields;
@@ -35,8 +35,8 @@ class baSpaceBoxesGalleryMeta {
 	 	* @return array
 	*/
 	public function add_Link_field_to_media_uploader_save( $post, $attachment ) {
-		if ( ! empty( $attachment['Link_field'] ) ) 
-			update_post_meta( $post['ID'], 'space_boxes_img_link', $attachment['Link_field'] );
+		if ( ! empty( $attachment['link_field'] ) ) 
+			update_post_meta( $post['ID'], 'space_boxes_img_link', $attachment['link_field'] );
 		else
 			delete_post_meta( $post['ID'], 'space_boxes_img_link' );
 
