@@ -159,11 +159,20 @@ class ba_SpaceBoxes_SC {
 					$getimage 		= wp_get_attachment_image($image->ID, $atts['size'], false, array('class' => 'spacebox-box-image'));
 					$getimgsrc 		= wp_get_attachment_image_src($image->ID,'large');
 					$img_title 	  	= $image->post_title;
+					$link 			= get_post_meta($image->ID,'space_boxes_img_link', true);
 
-					if ('on' == $atts['lightbox']) {
-						$image 		= sprintf('<a class="swipebox" href="%s" title="%s">%s</a>',$getimgsrc[0],$img_title,$getimage);
+
+					if ($link) {
+
+						$image 		= sprintf('<a class="spacebox-outbound-link" href="%s">%s</a>',$link, $getimage);
+
 					} else {
-						$image 		= wp_get_attachment_image($image->ID, $atts['size'], false, array('class' => 'spacebox-box-image'));
+
+						if ('on' == $atts['lightbox']) {
+							$image 		= sprintf('<a class="swipebox" href="%s" title="%s">%s</a>',$getimgsrc[0],$img_title,$getimage);
+						} else {
+							$image 		= wp_get_attachment_image($image->ID, $atts['size'], false, array('class' => 'spacebox-box-image'));
+						}
 					}
 
 	               	$out 			.= sprintf('<figure class="spacebox">%s</figure>',$image);
@@ -190,11 +199,22 @@ class ba_SpaceBoxes_SC {
 						$get_desc  		= $image->post_content;
 						$getimage 		= wp_get_attachment_image($image->ID, $atts['size'], false, array('class' => 'spacebox-box-image'));
 						$getimgsrc 		= wp_get_attachment_image_src($image->ID,'large');
+						$link 			= get_post_meta($image->ID,'space_boxes_img_link', true);
 
-						if ('on' == $atts['lightbox']) {
-							$image 		= sprintf('<a class="swipebox" href="%s" title="%s">%s</a>',$getimgsrc[0],$img_title,$getimage);
+						if ($link) {
+
+							$image 		= sprintf('<a class="spacebox-outbound-link" href="%s">%s</a>',$link, $getimage);
+
 						} else {
-							$image 		= wp_get_attachment_image($image->ID, $atts['size'], false, array('class' => 'spacebox-box-image'));
+
+							if ('on' == $atts['lightbox']) {
+
+								$image 		= sprintf('<a class="swipebox" href="%s" title="%s">%s</a>',$getimgsrc[0],$img_title,$getimage);
+
+							} else {
+
+								$image 		= wp_get_attachment_image($image->ID, $atts['size'], false, array('class' => 'spacebox-box-image'));
+							}
 						}
 
 			            $title 			= $img_title ? sprintf('<h3 itemprop="title" class="spacebox-box-title">%s</h3>',$img_title) : false;

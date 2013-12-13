@@ -11,7 +11,8 @@ Description: Generate unlimited boxes with multiple layouts and optional lightbo
 class ba_SpaceBoxes_FarOut_Man {
 
 	function __construct() {
-
+		
+		require_once('inc/galleryfield.php');
 		require_once('inc/spacebox-meta.php' );
 		require_once('inc/type.php' );
 		require_once('inc/settings.php' );
